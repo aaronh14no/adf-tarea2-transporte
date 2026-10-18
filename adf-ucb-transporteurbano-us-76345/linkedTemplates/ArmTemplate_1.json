@@ -382,40 +382,52 @@
 						"fileName": "operacion_2022.xlsx",
 						"folderPath": "datos_xls",
 						"fileSystem": "raw"
-					}
+					},
+					"firstRowAsHeader": true
 				},
 				"schema": [
 					{
+						"name": "id_viaje",
 						"type": "String"
 					},
 					{
+						"name": "cod_ruta",
 						"type": "String"
 					},
 					{
+						"name": "nro_bus",
 						"type": "String"
 					},
 					{
+						"name": "fecha_servicio",
 						"type": "String"
 					},
 					{
+						"name": "hora_programada",
 						"type": "String"
 					},
 					{
+						"name": "hora_salida",
 						"type": "String"
 					},
 					{
+						"name": "hora_llegada",
 						"type": "String"
 					},
 					{
+						"name": "pasajeros_estimados",
 						"type": "String"
 					},
 					{
+						"name": "km_recorridos",
 						"type": "String"
 					},
 					{
+						"name": "estado_viaje",
 						"type": "String"
 					},
 					{
+						"name": "tipo_metrica",
 						"type": "String"
 					}
 				]
@@ -1045,6 +1057,176 @@
 				"typeProperties": {
 					"schema": "bronze",
 					"table": "Viajes"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dw_silver_demanda_paradas_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sql_dw_transporter",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "silver"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "DemandaId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FechaServicio",
+						"type": "date"
+					},
+					{
+						"name": "RutaHistoricaId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ParadaHistoricaId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Franja",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ValidacionesTarjeta",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Descensos",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DemandaNoAtendida",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Metodo",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "silver",
+					"table": "DemandaParadas"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dw_silver_incidente_ruta_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sql_dw_transporter",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "silver"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "IncidenteId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "RutaHistoricaId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EsPrincipal",
+						"type": "bit"
+					}
+				],
+				"typeProperties": {
+					"schema": "silver",
+					"table": "IncidenteRuta"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dw_silver_incidentes_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sql_dw_transporter",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "silver"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "IncidenteId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TipoIncidente",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Severidad",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FechaHoraInicio",
+						"type": "datetime2",
+						"scale": 0
+					},
+					{
+						"name": "FechaHoraFin",
+						"type": "datetime2",
+						"scale": 0
+					},
+					{
+						"name": "FechaHoraRegistro",
+						"type": "datetime2",
+						"scale": 0
+					},
+					{
+						"name": "VehiculoId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Descripcion",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "silver",
+					"table": "Incidentes"
 				}
 			},
 			"dependsOn": []
