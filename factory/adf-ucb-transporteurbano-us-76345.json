@@ -1,0 +1,10 @@
+{
+	"name": "adf-ucb-transporteurbano-us-76345",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "westus3"
+}
